@@ -1,41 +1,50 @@
 <?php
-$username = $password = "";
+session_start();
 
+$username = $password = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
-
 
     $servername = "localhost";
     $dbusername = "root";
     $dbpassword = "";
     $dbname = "project_sastraku";
 
-
     $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
 
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-
     $sql = "SELECT * FROM data_user WHERE username='$username' AND password='$password'";
     $result = $conn->query($sql);
 
-
     if ($result->num_rows > 0) {
-        echo "Login berhasil!";
+        // Jika login berhasil, simpan username ke dalam sesi
+        $_SESSION["username"] = $username;
+        
+        // Cek apakah user sudah memilih kategori dan genre
+        $row = $result->fetch_assoc();
+        if($row['kategori'] === '') {
+            // Jika user belum memilih kategori, arahkan ke halaman pilihkategori.php
+            header("Location: http://localhost/project-sastraku/pilihkategori.php");
+        } elseif($row['genre'] === '') {
+            // Jika user belum memilih genre, arahkan ke halaman pilihgenre.php
+            header("Location: http://localhost/project-sastraku/pilihgenre.php");
+        } else {
+            // Jika user sudah memilih kategori dan genre, arahkan ke halaman Homepage.php
+            header("Location: http://localhost/project-sastraku/Homepage.php");        
+        }
+        exit;
     } else {
         echo "Username atau password salah!";
     }
 
-
     $conn->close();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -46,43 +55,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background : #FEE6A8;
         }
 
-
         h2{
             text-align : center;
             font-weight: 700;
         }
 
-
         .kotak_login{
             width: 350px;
             background: white;
-            /*Meletakkan form ke tengah */
             margin : 80px auto;
             padding : 30px 20px;
         }
 
-
         .tulisan_login{
             text-align: center;
-            /*Membuat semua huruf menjadi kapital*/
             text-transform: uppercase;
         }
-
 
         label{
             font-size : 11pt;
         }
 
-
         .form_login{
-            /*Membuat lebar form penuh*/
             box-sizing: border-box;
             width: 100%;
             padding: 10px;
             font-size: 11pt;
             margin-bottom: 20px;
         }
-
 
         .button_login{
             background: #46DE4B;
@@ -94,7 +94,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px 20px;
         }
 
-
         .link{
             color: #0000FF;
             text-decoration : none;
@@ -103,7 +102,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-
 
 <h2>Halaman Login</h2>
 <div class="kotak_login">
@@ -120,11 +118,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="submit" name="submit" value="Login" class="button_login">
     </form>
 
-
     <p>Belum punya akun? Silahkan daftar disini</p>
     <a class="link" href="http://localhost/project-sastraku/halamansignup.php">Sign-up</a>
 </div>
-
 
 </body>
 </html>
