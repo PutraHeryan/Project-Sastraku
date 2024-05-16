@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     $servername = "localhost";
-    $dbusername = "ro";
+    $dbusername = "root";
     $dbpassword = "";
     $dbname = "project_sastraku";
 
