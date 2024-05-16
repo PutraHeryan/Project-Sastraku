@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2024 at 09:35 AM
+-- Generation Time: May 16, 2024 at 03:47 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,15 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `data_user` (
   `Username` varchar(255) NOT NULL,
-  `Password` varchar(255) NOT NULL
+  `Password` varchar(255) NOT NULL,
+  `Kategori` varchar(255) NOT NULL,
+  `Genre` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `data_user`
 --
 
-INSERT INTO `data_user` (`Username`, `Password`) VALUES
-('putra', 'putra123');
+INSERT INTO `data_user` (`Username`, `Password`, `Kategori`, `Genre`) VALUES
+('putra', 'putra123', 'Drama, Novel, Cerpen', 'Petualangan, Romantis, Distopia');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
