@@ -22,20 +22,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Jika login berhasil, simpan username ke dalam sesi
-        $_SESSION["username"] = $username;
+        session_unset();
         
-        // Cek apakah user sudah memilih kategori dan genre
         $row = $result->fetch_assoc();
-        if($row['kategori'] === '') {
-            // Jika user belum memilih kategori, arahkan ke halaman pilihkategori.php
-            header("Location: http://localhost/project-sastraku/pilihkategori.php");
-        } elseif($row['genre'] === '') {
-            // Jika user belum memilih genre, arahkan ke halaman pilihgenre.php
-            header("Location: http://localhost/project-sastraku/pilihgenre.php");
+        $_SESSION["username"] = $username;
+        $_SESSION["id_user"] = $row["id_user"];
+
+        if (empty($row['kategori']) || empty($row['genre'])) {
+            if (empty($row['kategori'])) {
+                header("Location: http://localhost/project-sastraku/pilihkategori.php");
+            } else {
+                header("Location: http://localhost/project-sastraku/pilihgenre.php");
+            }
         } else {
-            // Jika user sudah memilih kategori dan genre, arahkan ke halaman Homepage.php
-            header("Location: http://localhost/project-sastraku/Homepage.php");        
+            header("Location: http://localhost/project-sastraku/Homepage.php");
         }
         exit;
     } else {

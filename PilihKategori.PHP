@@ -40,28 +40,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+        button.selected {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
 <body>
 
 <h2>KATEGORI SASTRA</h2>
 <p>Silahkan Pilih Kategori Sastra Yang Anda Sukai</p>
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-  <input type="checkbox" id="puisi" name="kategori[]" value="Puisi">
-  <label for="puisi"> Puisi</label><br>
-  <input type="checkbox" id="drama" name="kategori[]" value="Drama">
-  <label for="drama"> Drama</label><br>
-  <input type="checkbox" id="novel" name="kategori[]" value="Novel">
-  <label for="novel"> Novel</label><br>
-  <input type="checkbox" id="cerpen" name="kategori[]" value="Cerpen">
-  <label for="cerpen"> Cerpen</label><br>
-  <input type="checkbox" id="biografi" name="kategori[]" value="Biografi">
-  <label for="biografi"> Biografi</label><br>
-  <input type="checkbox" id="legenda" name="kategori[]" value="Legenda">
-  <label for="legenda"> Legenda</label><br>
-  <input type="checkbox" id="fabel" name="kategori[]" value="Fabel">
-  <label for="fabel"> Fabel</label><br>
-  <input type="submit" name="submit" value="Selanjutnya">
+    <button type="button" name="kategori[]" value="Puisi" onclick="toggleButton(this)">Puisi</button>
+    <button type="button" name="kategori[]" value="Drama" onclick="toggleButton(this)">Drama</button>
+    <button type="button" name="kategori[]" value="Novel" onclick="toggleButton(this)">Novel</button>
+    <button type="button" name="kategori[]" value="Cerpen" onclick="toggleButton(this)">Cerpen</button>
+    <button type="button" name="kategori[]" value="Biografi" onclick="toggleButton(this)">Biografi</button>
+    <button type="button" name="kategori[]" value="Legenda" onclick="toggleButton(this)">Legenda</button>
+    <button type="button" name="kategori[]" value="Fabel" onclick="toggleButton(this)">Fabel</button>
+    <br>
+    <input type="submit" name="submit" value="Selanjutnya">
 </form>
+
+<script>
+    function toggleButton(button) {
+        button.classList.toggle("selected");
+    }
+</script>
 
 </body>
 </html>

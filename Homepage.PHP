@@ -66,7 +66,7 @@ session_start();
             width: 100%;
             bottom: 0;
         }
-    </style>
+        </style>
 </head>
 <body>
     <header>
@@ -78,6 +78,7 @@ session_start();
             <li><a href="#">Latest</a></li>
             <li><a href="#">Search</a></li>
             <li><a href="#">History</a></li>
+            <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
         </ul>
     </nav>
     <div class="content">

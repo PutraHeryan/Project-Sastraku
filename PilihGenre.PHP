@@ -41,32 +41,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+        button.selected {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
 <body>
 
 <h2>GENRE BUKU</h2>
 <p>Silahkan Pilih Genre Buku Yang Anda Sukai</p>
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-  <input type="checkbox" id="fantasi" name="genre[]" value="Fantasi">
-  <label for="fantasi"> Fantasi</label><br>
-  <input type="checkbox" id="petualangan" name="genre[]" value="Petualangan">
-  <label for="petualangan"> Petualangan</label><br>
-  <input type="checkbox" id="romantis" name="genre[]" value="Romantis">
-  <label for="romantis"> Romantis</label><br>
-  <input type="checkbox" id="distopia" name="genre[]" value="Distopia">
-  <label for="distopia"> Distopia</label><br>
-  <input type="checkbox" id="misteri" name="genre[]" value="Misteri">
-  <label for="misteri"> Misteri</label><br>
-  <input type="checkbox" id="horor" name="genre[]" value="Horor">
-  <label for="horor"> Horor</label><br>
-  <input type="checkbox" id="thriller" name="genre[]" value="Thriller">
-  <label for="thriller"> Thriller</label><br>
-  <input type="checkbox" id="paranormal" name="genre[]" value="Paranormal">
-  <label for="paranormal"> Paranormal</label><br>
-  <input type="checkbox" id="fiksi_ilmiah" name="genre[]" value="Fiksi Ilmiah (Sci-Fi)">
-  <label for="fiksi_ilmiah"> Fiksi Ilmiah (Sci-Fi)</label><br>
-  <input type="submit" name="submit" value="Mulai Membaca">
+    <button type="button" name="genre" value="Fantasi" onclick="toggleButton(this)">Fantasi</button>
+    <button type="button" name="genre" value="Petualangan" onclick="toggleButton(this)">Petualangan</button>
+    <button type="button" name="genre" value="Romantis" onclick="toggleButton(this)">Romantis</button>
+    <button type="button" name="genre" value="Distopia" onclick="toggleButton(this)">Distopia</button>
+    <button type="button" name="genre" value="Misteri" onclick="toggleButton(this)">Misteri</button>
+    <button type="button" name="genre" value="Horor" onclick="toggleButton(this)">Horor</button>
+    <button type="button" name="genre" value="Thriller" onclick="toggleButton(this)">Thriller</button>
+    <button type="button" name="genre" value="Paranormal" onclick="toggleButton(this)">Paranormal</button>
+    <button type="button" name="genre" value="Fiksi Ilmiah (Sci-Fi)" onclick="toggleButton(this)">Fiksi Ilmiah (Sci-Fi)</button>
+    <br>
+    <input type="submit" name="submit" value="Mulai Membaca">
 </form>
+
+<script>
+    function toggleButton(button) {
+        button.classList.toggle("selected");
+    }
+</script>
 
 </body>
 </html>

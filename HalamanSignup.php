@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
 
-    if($password != $confirm_password){
+    if ($password != $confirm_password) {
         echo "Password tidak sama!";
     } else {
         $servername = "localhost";
@@ -20,11 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("Koneksi gagal: " . $conn->connect_error);
         }
 
-        $sql = "INSERT INTO Data_User (username, password)
-        VALUES ('$username', '$password')";
+        $sql = "INSERT INTO Data_User (username, password) VALUES ('$username', '$password')";
 
         if ($conn->query($sql) === TRUE) {
+            $new_id_user = $conn->insert_id;
             echo "Pendaftaran berhasil!";
+
+            header("Location: http://localhost/project-sastraku/halamanlogin.php");
+            exit;
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -36,19 +39,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
+<head>
+    <style type="text/css">
+        h2{
+            text-align : center;
+            font-weight: 700;
+        }
+
+
+        body{
+            font-family : sans-serif;
+            background : #FEE6A8;
+        }
+
+
+        .kotak_login{
+            width: 350px;
+            background: white;
+            /*Meletakkan form ke tengah */
+            margin : 80px auto;
+            padding : 30px 20px;
+        }
+
+
+        .tulisan_signup{
+            text-align: center;
+            /*Membuat semua huruf menjadi kapital*/
+            text-transform: uppercase;
+        }
+
+
+        label{
+            font-size : 11pt;
+        }
+
+
+        .form_signup{
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            font-size: 11pt;
+            margin-bottom: 15px;
+        }
+
+
+        .button_signup{
+            background: #46DE4B;
+            color: white;
+            font-size: 11pt;
+            width: 100%;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+        }
+
+    </style>
+</head>
 <body>
 
+
 <h2>Halaman Sign Up</h2>
-
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-  Username: <input type="text" name="username">
-  <br><br>
-  Password: <input type="password" name="password">
-  <br><br>
-  Konfirmasi Password: <input type="password" name="confirm_password">
-  <br><br>
-  <input type="submit" name="submit" value="Daftar">
+<div class="kotak_login">
+    <p class="tulisan_signup">Silahkan Sign-Up</p>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <label>Username</label>
+    <br/>
+    <input type="text" name="username" class="form_signup" placeholder="">
+    <br><br>
+    <label>Password</label>
+    <br/>
+    <input type="password" name="password" class="form_signup">
+    <br><br>
+    <label>Konfirmasi Password</label>
+    <br/>
+    <input type="password" name="confirm_password" class="form_signup">
+    <br><br>
+    <input type="submit" name="submit" value="Daftar" class="button_signup">
 </form>
-
+</div>
 </body>
 </html>
