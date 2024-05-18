@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2024 at 03:47 PM
+-- Generation Time: May 18, 2024 at 01:33 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `data_user` (
+  `id_user` int(11) NOT NULL,
   `Username` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Kategori` varchar(255) NOT NULL,
@@ -38,8 +39,30 @@ CREATE TABLE `data_user` (
 -- Dumping data for table `data_user`
 --
 
-INSERT INTO `data_user` (`Username`, `Password`, `Kategori`, `Genre`) VALUES
-('putra', 'putra123', 'Drama, Novel, Cerpen', 'Petualangan, Romantis, Distopia');
+INSERT INTO `data_user` (`id_user`, `Username`, `Password`, `Kategori`, `Genre`) VALUES
+(1, 'putra', 'putra123', 'Novel, Cerpen, Biografi', 'Distopia, Paranormal, Fiksi Ilmiah (Sci-Fi)'),
+(2, 'daffa', 'daffa123', '', ''),
+(3, 'mahogra', 'ogra123', '', '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `data_user`
+--
+ALTER TABLE `data_user`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `data_user`
+--
+ALTER TABLE `data_user`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
