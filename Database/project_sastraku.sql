@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2024 at 01:33 PM
+-- Generation Time: May 18, 2024 at 04:56 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,7 +40,7 @@ CREATE TABLE `data_user` (
 --
 
 INSERT INTO `data_user` (`id_user`, `Username`, `Password`, `Kategori`, `Genre`) VALUES
-(1, 'putra', 'putra123', 'Novel, Cerpen, Biografi', 'Distopia, Paranormal, Fiksi Ilmiah (Sci-Fi)'),
+(1, 'putra', 'putra123', 'Cerpen, Biografi, Legenda', 'Thriller, Paranormal, Fiksi Ilmiah (Sci-Fi)'),
 (2, 'daffa', 'daffa123', '', ''),
 (3, 'mahogra', 'ogra123', '', '');
 
