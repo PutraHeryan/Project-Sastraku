@@ -23,7 +23,7 @@ $penulis = $_SESSION['username'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sampul_buku = $_POST["sampul_buku"];
     $jenis_sastra = $_POST["jenis_sastra"];
-    $genre = $_POST["genre"];
+    $genre = implode(", ", $_POST["genre"]);
     $sinopsis = $_POST["sinopsis"];
     $judul = $_POST["judul"];
 
@@ -43,21 +43,16 @@ $conn->close();
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        button.selected {
-            background-color: black;
-            color: white;
-        }
-    </style>
 </head>
 <body>
 
 <h2>Halaman Penulis</h2>
 <form method="post">
     <label for="judul">Judul Buku:</label>
-    <input type="text" name="judul"><br>
+    <input type="text" name="judul"><br><br>
     <label for="sampul_buku">Sampul Buku:</label>
-    <input type="file" name="sampul_buku" accept="image/*"><br>
+    <input type="file" name="sampul_buku" accept="image/*" onchange="previewImage(event)"><br>
+    <img id="preview_sampul" src="" alt="Preview Sampul Buku" style="max-width: 200px;"><br><br>
     <label for="jenis_sastra">Kategori Sastra:</label>
     <input  type="radio" name="jenis_sastra" value="puisi" onclick="toggleButton(this)">Puisi
     <input  type="radio" name="jenis_sastra" value="drama" onclick="toggleButton(this)">Drama
@@ -66,28 +61,44 @@ $conn->close();
     <input  type="radio" name="jenis_sastra" value="Biografi" onclick="toggleButton(this)">Biografi
     <input  type="radio" name="jenis_sastra" value="Legenda" onclick="toggleButton(this)">Legenda
     <input  type="radio" name="jenis_sastra" value="fabel" onclick="toggleButton(this)">fabel
-    <br>
-    <label for="genre">Genre:</label>
-    <button type="button" name="genre" value="fantasi" onclick="toggleButton(this)">Fantasi</button>
-    <button type="button" name="genre" value="petualangan" onclick="toggleButton(this)">Petualangan</button>
-    <button type="button" name="genre" value="Romantis" onclick="toggleButton(this)">Romantis</button>
-    <button type="button" name="genre" value="Distopia" onclick="toggleButton(this)">Distopia</button>
-    <button type="button" name="genre" value="Misteri" onclick="toggleButton(this)">Misteri</button>
-    <button type="button" name="genre" value="Horor" onclick="toggleButton(this)">Horor</button>
-    <button type="button" name="genre" value="Thriller" onclick="toggleButton(this)">Thriller</button>
-    <button type="button" name="genre" value="Paranormal" onclick="toggleButton(this)">Paranormal</button>
-    <button type="button" name="genre" value="Fiksi Ilmiah (Sci-Fi)" onclick="toggleButton(this)">Fiksi Ilmiah (Sci-Fi)</button>
+    <br><br>
+    <label for="genre">Genre:</label><br>
+    <input type="checkbox" id="fantasi" name="genre[]" value="Fantasi">
+    <label for="fantasi"> Fantasi</label><br>
+    <input type="checkbox" id="petualangan" name="genre[]" value="Petualangan">
+    <label for="petualangan"> Petualangan</label><br>
+    <input type="checkbox" id="romantis" name="genre[]" value="Romantis">
+    <label for="romantis"> Romantis</label><br>
+    <input type="checkbox" id="distopia" name="genre[]" value="Distopia">
+    <label for="distopia"> Distopia</label><br>
+    <input type="checkbox" id="misteri" name="genre[]" value="Misteri">
+    <label for="misteri"> Misteri</label><br>
+    <input type="checkbox" id="horor" name="genre[]" value="Horor">
+    <label for="horor"> Horor</label><br>
+    <input type="checkbox" id="thriller" name="genre[]" value="Thriller">
+    <label for="thriller"> Thriller</label><br>
+    <input type="checkbox" id="paranormal" name="genre[]" value="Paranormal">
+    <label for="paranormal"> Paranormal</label><br>
+    <input type="checkbox" id="fiksi_ilmiah" name="genre[]" value="Fiksi Ilmiah (Sci-Fi)">
+    <label for="fiksi_ilmiah"> Fiksi Ilmiah (Sci-Fi)</label><br>
     <br>
     <label for="sinopsis">Sinopsis:</label>
-    <textarea name="sinopsis"></textarea><br>
+    <textarea name="sinopsis"></textarea><br><br>
     <input type="submit" value="Mulai Menulis!">
 </form>
-
 <script>
     function toggleButton(button) {
         button.classList.toggle("selected");
     }
-</script>
 
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var preview = document.getElementById('preview_sampul');
+            preview.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
 </body>
 </html>
