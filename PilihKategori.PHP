@@ -57,6 +57,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin : 80px auto;
             padding : 30px 20px;
         }
+        .kotak_kategori p {
+        text-align: center;
+        margin-bottom: 20px;
+        }
+        .kotak_kategori input[type="checkbox"] {
+        margin-right: 10px;
+        }
+        .kotak_kategori label {
+        cursor: pointer;
+        }
+        .kotak_kategori input[type="submit"] {
+        background-color: #46DE4B;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        }
     </style>
 </head>
 <body>
