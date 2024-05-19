@@ -79,6 +79,7 @@ session_start();
             <li><a href="#">Search</a></li>
             <li><a href="#">History</a></li>
             <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
+            <li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>
         </ul>
     </nav>
     <div class="content">

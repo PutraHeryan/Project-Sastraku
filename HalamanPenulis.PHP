@@ -30,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO data_buku (id, penulis, sampul_buku, jenis_sastra, genre, sinopsis, judul)
             VALUES ('$id_buku', '$penulis', '$sampul_buku', '$jenis_sastra', '$genre', '$sinopsis', '$judul')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Buku berhasil disimpan!";
+   if ($conn->query($sql) === TRUE) {
+        header("Location: http://localhost/project-sastraku/TulisBuku.php");
+        exit;
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
