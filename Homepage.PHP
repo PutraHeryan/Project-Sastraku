@@ -1,5 +1,25 @@
 <?php
 session_start();
+$servername = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "project_sastraku";
+
+$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+
+$id_user = $_SESSION['id_user'];
+$query = "SELECT kategori, genre FROM data_user WHERE id_user = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param('i', $id_user);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+$query = "SELECT judul, sampul_buku FROM data_buku WHERE jenis_sastra = ? AND genre = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param('ss', $user['kategori'], $user['genre']);
+$stmt->execute();
+$books = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +104,12 @@ session_start();
     </nav>
     <div class="content">
         <h1>Selamat Datang di Beranda Kami</h1>
+        <h2>Rekomendasi Buku</h2>
+        <?php while($book = $books->fetch_assoc()): ?>
+            <div class="book">
+                <h3><?php echo $book['judul']; ?></h3>
+            </div>
+        <?php endwhile; ?>
     </div>
     <footer>
         <p>&copy; 2024 SastraKu. Hak Cipta Dilindungi.</p>
