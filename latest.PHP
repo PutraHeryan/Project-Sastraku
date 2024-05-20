@@ -52,6 +52,12 @@ session_start();
         .latest p {
             margin-bottom: 20px;
         }
+        .latest img {
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
         footer {
             background-color: #333;
             color: white;
@@ -74,13 +80,15 @@ session_start();
             <li><a href="#">Search</a></li>
             <li><a href="#">History</a></li>
             <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
+<li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>
+
+
         </ul>
     </nav>
     <div class="konten">
         <div class="latest">
-            <h2>Disini tempat tampilan karya sastra yang terbaru</h2>
+        
             <?php
-           
             $servername = "localhost";
             $username = "root";
             $password = "";
@@ -90,21 +98,22 @@ session_start();
             $conn = new mysqli($servername, $username, $password, $dbname);
 
 
-           
             if ($conn->connect_error) {
                 die("Koneksi gagal: " . $conn->connect_error);
             }
 
 
-           
-            $sql = "SELECT judul, penulis, data_upload FROM data_sastraku ORDER BY data_upload DESC LIMIT 5";
+            $sql = "SELECT judul, Jenis_Sastra, Sampul_Buku FROM data_buku ORDER BY Sampul_Buku DESC LIMIT 10";
             $result = $conn->query($sql);
 
 
             if ($result->num_rows > 0) {
-               
                 while($row = $result->fetch_assoc()) {
-                    echo "<h3>" . $row["title"]. "</h3><p>by " . $row["penulis"]. " - " . $row["data_upload"]. "</p>";
+                    echo "<div class='book'>";
+                    echo "<h3>" . $row["judul"]. "</h3>";
+                    echo "<p>" . $row["Jenis_Sastra"]. "</p>";
+                    echo "<img src='" . $row["Sampul_Buku"] . "' alt='Sampul Buku'>";
+                    echo "</div>";
                 }
             } else {
                 echo "Belum ada karya sastra terbaru.";
