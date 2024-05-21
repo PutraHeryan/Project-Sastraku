@@ -157,7 +157,7 @@
                 echo "<div class='book'>";
                 echo "<h3>" . $row["judul"]. "</h3>";
                 echo "<p>" . $row["jenis_sastra"]. "</p>";
-                echo "<img src='data:image/jpeg;base64," . base64_encode($row["sampul_buku"]) . "' alt='Sampul Buku'>";
+                echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' width='200' height='300' />";
                 echo "</div>";
             }
         } else {

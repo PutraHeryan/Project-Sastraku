@@ -54,6 +54,21 @@
         }
 
 
+        /* Tambahkan gaya CSS ini */
+        .book-list {
+            display: flex;
+            flex-wrap: nowrap; /* Ubah ini menjadi nowrap */
+            overflow-x: auto; /* Tambahkan ini */
+            justify-content: space-between;
+        }
+
+        .book {
+            margin: 10px;
+            width: calc(33% - 20px);
+            box-sizing: border-box;
+        }
+
+
         footer {
             background-color: #333;
             color: white;
@@ -63,7 +78,7 @@
             width: 100%;
             bottom: 0;
         }
-        </style>
+    </style>
 </head>
 <body>
     <header>
@@ -80,7 +95,7 @@
         </ul>
     </nav>
     <footer>
-        <p>&copy; 2024 SastraKu. Hak Cipta Dilindungi.</p>
+        <p>© 2024 SastraKu. Hak Cipta Dilindungi.</p>
     </footer>
 </body>
 </html>
@@ -101,7 +116,7 @@ if ($conn->connect_error) {
 
 $penulis = $_SESSION['username'];
 
-$sql = "SELECT id, judul FROM data_buku WHERE penulis = '$penulis'";
+$sql = "SELECT id, judul, sampul_buku FROM data_buku WHERE penulis = '$penulis'";
 $result = $conn->query($sql);
 
 $conn->close();
@@ -114,20 +129,22 @@ $conn->close();
 <body>
 
 <h2>Daftar Buku Anda</h2>
-
-<?php
-if ($result->num_rows > 0) {
-    $nomor = 1;
-    while ($row = $result->fetch_assoc()) {
-        echo '<div>';
-        echo '<h3>' . $nomor . '. ' . $row['judul'] . '</h3>';
-        echo '</div>';
-        $nomor++;
+<div class="book-list">
+    <?php
+    if ($result->num_rows > 0) {
+        $nomor = 1;
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="book">';
+            echo '<h3>' . $nomor . '. ' . $row['judul'] . '</h3>';
+            echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' width='200' height='300' />";
+            echo '</div>';
+            $nomor++;
+        }
+    } else {
+        echo 'Anda belum menulis buku.';
     }
-} else {
-    echo 'Anda belum menulis buku.';
-}
-?>
+    ?>
+</div>
 
 <a href="http://localhost/project-sastraku/homepage.php">Kembali</a>
 </body>

@@ -108,11 +108,12 @@ $books = $stmt->get_result();
         <?php while($book = $books->fetch_assoc()): ?>
             <div class="book">
                 <h3><?php echo $book['judul']; ?></h3>
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($book['sampul_buku']); ?>" />
             </div>
         <?php endwhile; ?>
     </div>
     <footer>
-        <p>&copy; 2024 SastraKu. Hak Cipta Dilindungi.</p>
+        <p>© 2024 SastraKu. Hak Cipta Dilindungi.</p>
     </footer>
 </body>
 </html>

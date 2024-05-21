@@ -85,6 +85,7 @@ session_start();
         </ul>
     </nav>
     <div class="content">
+    <h1>Buku Terbaru</h1>
         <div class="latest">
         <?php
         $servername = "localhost";
