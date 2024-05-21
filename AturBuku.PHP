@@ -109,7 +109,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         echo "<div class='book'>";
         echo "<p>" . $counter . ". " . $row["judul"] . "</p>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' />";
+        echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' width='200' height='300' />";
         echo "<form method='post' action=''>";
         echo "<input type='hidden' name='id' value='" . $row['id'] . "'/>";
         echo "<input type='submit' value='Hapus'/>";

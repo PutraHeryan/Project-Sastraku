@@ -108,7 +108,7 @@ $books = $stmt->get_result();
         <?php while($book = $books->fetch_assoc()): ?>
             <div class="book">
                 <h3><?php echo $book['judul']; ?></h3>
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($book['sampul_buku']); ?>" />
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($book['sampul_buku']); ?>" width='200' height='300' />
             </div>
         <?php endwhile; ?>
     </div>

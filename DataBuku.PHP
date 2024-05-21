@@ -101,7 +101,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         echo "<div class='book'>";
         echo "<p>" . $counter . ". " . $row["judul"] . "</p>";
-        echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' />";
+        echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' width='200' height='300' />";
         echo "<p>Kategori: " . $row["jenis_sastra"] . "</p>";
         echo "<p>Genre: " . $row["genre"] . "</p>";
         echo "<p>Penulis: " . $row["penulis"] . "</p>";
