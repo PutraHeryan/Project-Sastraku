@@ -1,62 +1,33 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project_sastraku";
-
-
-// Membuat koneksi ke database
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-
-// Memeriksa koneksi
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
-
-
-// Mendapatkan ID karya sastra yang dipilih dari halaman sebelumnya
-if(isset($_GET['id']) && !empty(trim($_GET['id']))){
-    $id = trim($_GET['id']);
+if (isset($_GET["id"])) {
+    $id_buku = $_GET["id"];
    
-    // Mengambil data karya sastra berdasarkan ID
-    $sql = "SELECT judul, jenis_sastra, sampul_buku, sinopsis FROM data_buku WHERE id = ?";
-   
-    if($stmt = $conn->prepare($sql)){
-        // Bind parameter ke pernyataan
-        $stmt->bind_param("i", $param_id);
-       
-        // Set parameter
-        $param_id = $id;
-       
-        // Mengeksekusi pernyataan
-        if($stmt->execute()){
-            // Menyimpan hasil
-            $stmt->store_result();
-           
-            // Memeriksa apakah ID tersebut ada dalam database
-            if($stmt->num_rows == 1){                    
-                // Mengikat variabel hasil
-                $stmt->bind_result($judul, $jenis_sastra, $sampul_buku, $sinopsis);
-                $stmt->fetch();
-            } else{
-                // Jika ID tidak valid, redirect ke halaman error
-                header("location: error.php");
-                exit();
-            }
-        } else{
-            echo "Oops! Terjadi kesalahan. Silakan coba lagi nanti.";
-        }
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "project_sastraku";
+
+
+    // Membuat koneksi ke database
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+
+    // Memeriksa koneksi
+    if ($conn->connect_error) {
+        die("Koneksi gagal: " . $conn->connect_error);
     }
-   
-    // Menutup pernyataan
-    $stmt->close();
-   
+
+
+    // Mendapatkan data buku berdasarkan ID
+    $sql = "SELECT judul, sinopsis, sampul_buku FROM data_buku WHERE id = '$id_buku'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+
+
     // Menutup koneksi
     $conn->close();
-} else{
-    // Jika ID tidak ada, redirect ke halaman error
-    header("location: error.php");
+} else {
+    header("Location: error.php");
     exit();
 }
 ?>
@@ -67,24 +38,74 @@ if(isset($_GET['id']) && !empty(trim($_GET['id']))){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tampilan Baca</title>
+    <title><?php echo $row["judul"]; ?></title>
     <style>
-        /* Tambahkan CSS sesuai kebutuhan Anda */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .book img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+        .book p {
+            color: #666;
+        }
+        .rating {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .rating input {
+            display: none;
+        }
+        .rating label {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+        }
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #f5b301;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2><?php echo $judul; ?></h2>
-        <p>Jenis Sastra: <?php echo $jenis_sastra; ?></p>
-        <img src="data:image/jpeg;base64,<?php echo base64_encode($sampul_buku); ?>" alt="Sampul Buku">
-        <p><?php echo $sinopsis; ?></p>
-        <form action="proses-rating.php" method="post">
-            <label for="rating">Rating (1-10):</label>
-            <input type="number" id="rating" name="rating" min="1" max="10" required>
-            <input type="hidden" name="id_buku" value="<?php echo $id; ?>">
-            <input type="submit" value="Beri Rating">
-        </form>
-        <a href="baca.php">Kembali</a>
+        <div class="book">
+            <h1><?php echo $row["judul"]; ?></h1>
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($row["sampul_buku"]); ?>" alt="Sampul Buku">
+            <p><?php echo $row["sinopsis"]; ?></p>
+        </div>
+        <div class="rating">
+            <h2>Beri Rating:</h2>
+            <form method="post" action="rating.php">
+                <input type="hidden" name="id_buku" value="<?php echo $id_buku; ?>">
+                <?php for ($i = 10; $i >= 1; $i--): ?>
+                    <input type="radio" id="star<?php echo $i; ?>" name="rating" value="<?php echo $i; ?>">
+                    <label for="star<?php echo $i; ?>">★</label>
+                <?php endfor; ?>
+                <br><br>
+                <input type="submit" value="Kirim">
+            </form>
+        </div>
     </div>
 </body>
 </html>
