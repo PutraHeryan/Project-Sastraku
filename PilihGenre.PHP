@@ -43,13 +43,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <style>
-         h2{
+        header {
+            background-color: #a0af4c;
+            color: white;
             text-align: center;
-            font-weight: 700;
+            padding: 1rem;
         }
-        body{
-            font-family : sans-serif;
-            background: #FEE6A8;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #FEE6A8;
         }
         .kotak_genre{
             width: 350px;
@@ -78,8 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-
-<h2>GENRE BUKU</h2>
+<header>
+    <h1>GENRE BUKU</h1>
+</header>
 <div class="kotak_genre">
     <p>Silahkan Pilih Genre Buku Yang Anda Sukai</p>
 

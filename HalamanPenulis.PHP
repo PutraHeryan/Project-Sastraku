@@ -44,10 +44,89 @@ $conn->close();
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #FEE6A8;
+        }
+        header {
+            background-color: #a0af4c;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+
+/* Form styles */
+
+
+label {
+  display: block; /* Makes labels appear on separate lines */
+  margin-bottom: 5px;
+}
+
+
+input[type="text"],
+input[type="file"],
+textarea {
+  width: 25%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+
+.selected { /* Style for selected radio button (optional) */
+  background-color: #ddd;
+}
+
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+
+/* Styling for genre checkboxes and labels */
+
+
+.genre-container { /* Optional container for better grouping */
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+
+.genre-container label {
+  margin-right: 15px;
+}
+
+
+/* Styling for submit button */
+
+
+input[type="submit"] {
+  background-color: #4CAF50; /* Green color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+    </style>
 </head>
 <body>
-
-<h2>Halaman Penulis</h2>
+<header>
+  <h1>Halaman Penulis</h1>
+</header>
 <form method="post">
     <label for="judul">Judul Buku:</label>
     <input type="text" name="judul"><br><br>

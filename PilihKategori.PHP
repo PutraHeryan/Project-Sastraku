@@ -42,13 +42,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <style>
-        h2{
+        header {
+            background-color: #a0af4c;
+            color: white;
             text-align: center;
-            font-weight: 700;
+            padding: 1rem;
         }
-        body{
-            font-family : sans-serif;
-            background: #FEE6A8;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #FEE6A8;
         }
         .kotak_kategori{
             width: 350px;
@@ -78,7 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<h2>KATEGORI SASTRA</h2>
+<header>
+    <h1>KATEGORI SASTRA</h1>
+</header>
 
 <div class="kotak_kategori">
     <p>Silahkan Pilih Kategori Sastra Yang Anda Sukai</p>
@@ -96,7 +103,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <input type="checkbox" id="legenda" name="kategori[]" value="Legenda">
   <label for="legenda"> Legenda</label><br>
   <input type="checkbox" id="fabel" name="kategori[]" value="Fabel">
-  <label for="fabel"> Fabel</label><br>
+  <label for="fabel"> Fabel</label>
+  <br>
+  <br>
   <input type="submit" name="submit" value="Selanjutnya">
     </form>
 </div>

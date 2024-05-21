@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         session_unset();
-        
+       
         $row = $result->fetch_assoc();
         $_SESSION["username"] = $username;
         $_SESSION["id_user"] = $row["id_user"];
@@ -58,16 +58,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <style type="text/css">
-        body{
-            font-family : sans-serif;
-            background : #FEE6A8;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #FEE6A8;
         }
 
-        h2{
-            text-align : center;
-            font-weight: 700;
+        header {
+            background-color: #a0af4c;
+            color: white;
+            text-align: center;
+            padding: 1rem;
         }
-
+        
         .kotak_login{
             width: 350px;
             background: white;
@@ -111,7 +116,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<h2>Halaman Login</h2>
+
+<header>
+    <h1>Halaman Login</h1>
+</header>
 <div class="kotak_login">
     <p class="tulisan_login">Silahkan Login</p>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

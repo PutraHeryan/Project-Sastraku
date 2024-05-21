@@ -78,7 +78,7 @@ session_start();
         <ul>
             <li><a href="HomePage.php">Home</a></li>
             <li><a href="latest.php">Latest</a></li>
-            <li><a href="#">Search</a></li>
+            <li><a href="search.PHP">Search</a></li>
             <li><a href="#">History</a></li>
             <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
             <li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>

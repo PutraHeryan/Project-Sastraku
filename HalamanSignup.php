@@ -41,18 +41,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <style type="text/css">
-        h2{
-            text-align : center;
-            font-weight: 700;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #FEE6A8;
         }
-
-
-        body{
-            font-family : sans-serif;
-            background : #FEE6A8;
+        header {
+            background-color: #a0af4c;
+            color: white;
+            text-align: center;
+            padding: 1rem;
         }
-
-
         .kotak_login{
             width: 350px;
             background: white;
@@ -98,7 +99,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 
-<h2>Halaman Sign Up</h2>
+<header>
+    <h1>Halaman Sign Up</h1>
+</header>
+
+
 <div class="kotak_login">
     <p class="tulisan_signup">Silahkan Sign-Up</p>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
