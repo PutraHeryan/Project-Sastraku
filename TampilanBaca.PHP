@@ -91,7 +91,7 @@ if (isset($_GET["id"])) {
     <div class="container">
         <div class="book">
             <h1><?php echo $row["judul"]; ?></h1>
-            <img src="data:image/jpeg;base64,<?php echo base64_encode($row["sampul_buku"]); ?>" alt="Sampul Buku">
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($row["sampul_buku"]); ?>" alt="Sampul Buku" width='200' height='300' >
             <p><?php echo $row["sinopsis"]; ?></p>
         </div>
         <div class="rating">
