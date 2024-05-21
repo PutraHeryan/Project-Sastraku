@@ -73,6 +73,7 @@ session_start();
     <header>
         <h1>Latest</h1>
     </header>
+   
     <nav>
         <ul>
             <li><a href="HomePage.php">Home</a></li>
@@ -80,46 +81,45 @@ session_start();
             <li><a href="#">Search</a></li>
             <li><a href="#">History</a></li>
             <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
-<li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>
-
-
+            <li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>
         </ul>
     </nav>
-    <div class="konten">
+    <div class="content">
         <div class="latest">
-        
-            <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "project_sastraku";
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "project_sastraku";
+       
+        // Membuat koneksi ke database
+        $conn = new mysqli($servername, $username, $password, $dbname);
+       
+        // Memeriksa koneksi
+        if ($conn->connect_error) {
+            die("Koneksi gagal: " . $conn->connect_error);
+        }
+       
+        $sql = "SELECT id, judul, jenis_sastra, sampul_buku FROM data_buku ORDER BY id DESC LIMIT 10";
+        $result = $conn->query($sql);
+       
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+        echo "<div class='book'>";
+        echo "<h3>" . $row["judul"]. "</h3>";
+        echo "<p>" . $row["jenis_sastra"]. "</p>";
+        echo "<a href='tampilanbaca.php?id=" . $row["id"] . "'>";
+        echo "<img src='data:image/jpeg;base64," . base64_encode($row["sampul_buku"]) . "' alt='Sampul Buku'>";
+        echo "</a>";
+        echo "</div>";
+    }
+} else {
+    echo "Belum ada karya sastra terbaru.";
+}
+$conn->close();
+?>
 
 
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-
-            if ($conn->connect_error) {
-                die("Koneksi gagal: " . $conn->connect_error);
-            }
-
-
-            $sql = "SELECT judul, Jenis_Sastra, Sampul_Buku FROM data_buku ORDER BY Sampul_Buku DESC LIMIT 10";
-            $result = $conn->query($sql);
-
-
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<div class='book'>";
-                    echo "<h3>" . $row["judul"]. "</h3>";
-                    echo "<p>" . $row["Jenis_Sastra"]. "</p>";
-                    echo "<img src='" . $row["Sampul_Buku"] . "' alt='Sampul Buku'>";
-                    echo "</div>";
-                }
-            } else {
-                echo "Belum ada karya sastra terbaru.";
-            }
-            $conn->close();
-            ?>
         </div>
     </div>
     <footer>

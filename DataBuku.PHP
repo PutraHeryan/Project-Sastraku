@@ -67,27 +67,21 @@
 </head>
 <body>
     <header>
-        <h1>Writing List</h1>
+        <h1>Book Data</h1>
     </header>
     <nav>
         <ul>
-            <li><a href="HomePage.php">Home</a></li>
-            <li><a href="http://localhost/project-sastraku/latest.php">Latest</a></li>
-            <li><a href="#">Search</a></li>
-            <li><a href="#">History</a></li>
-            <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
-            <li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>
+            <li><a href="HomepageAdmin.php">Home</a></li>
+            <li><a href="DataBuku.PHP">Book Data</a></li>
+            <li><a href="AturBuku.PHP">Manage Book</a></li>
         </ul>
     </nav>
-    <footer>
-        <p>&copy; 2024 SastraKu. Hak Cipta Dilindungi.</p>
-    </footer>
+    <div class="content">
+    </div>
 </body>
 </html>
 
 <?php
-session_start();
-
 $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "";
@@ -99,36 +93,24 @@ if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-$penulis = $_SESSION['username'];
-
-$sql = "SELECT id, judul FROM data_buku WHERE penulis = '$penulis'";
+$sql = "SELECT judul, sampul_buku, jenis_sastra, genre, penulis FROM data_buku";
 $result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $counter = 1;
+    while($row = $result->fetch_assoc()) {
+        echo "<div class='book'>";
+        echo "<p>" . $counter . ". " . $row["judul"] . "</p>";
+        echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' />";
+        echo "<p>Kategori: " . $row["jenis_sastra"] . "</p>";
+        echo "<p>Genre: " . $row["genre"] . "</p>";
+        echo "<p>Penulis: " . $row["penulis"] . "</p>";
+        echo "</div>";
+        $counter++;
+    }
+} else {
+    echo "Tidak ada buku yang ditemukan.";
+}
 
 $conn->close();
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-
-<h2>Daftar Buku Anda</h2>
-
-<?php
-if ($result->num_rows > 0) {
-    $nomor = 1;
-    while ($row = $result->fetch_assoc()) {
-        echo '<div>';
-        echo '<h3>' . $nomor . '. ' . $row['judul'] . '</h3>';
-        echo '</div>';
-        $nomor++;
-    }
-} else {
-    echo 'Anda belum menulis buku.';
-}
-?>
-
-<a href="http://localhost/project-sastraku/homepage.php">Kembali</a>
-</body>
-</html>

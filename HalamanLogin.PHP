@@ -18,6 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
+    $sql = "SELECT * FROM data_admin WHERE username='$username' AND password='$password'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        header("Location: http://localhost/project-sastraku/HomepageAdmin.php");
+        exit;
+    }
+
     $sql = "SELECT * FROM data_user WHERE username='$username' AND password='$password'";
     $result = $conn->query($sql);
 
