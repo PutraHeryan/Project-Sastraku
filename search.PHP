@@ -1,9 +1,35 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "project_sastraku";
+
+
+// Membuat koneksi ke database
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+
+// Memeriksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+
+$searchTerm = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $searchTerm = $_POST['search'];
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title>Search</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,6 +69,7 @@
         nav ul li a:hover {
             background-color: #111;
         }
+
 
         .content {
             padding: 20px;
@@ -109,65 +136,52 @@
 </head>
 <body>
 <header>
-        <h1>Search</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="HomePage.php">Home</a></li>
-            <li><a href="http://localhost/project-sastraku/latest.php">Latest</a></li>
-            <li><a href="search.PHP">Search</a></li>
-            <li><a href="#">History</a></li>
-            <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
-            <li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>
-        </ul>
-    </nav>
-    <div class="container">
-        <h1></h1>
-        <form method="post" action="search.php">
-            <input type="text" name="search" placeholder="Cari judul karya sastra">
-            <input type="submit" value="Cari">
-        </form>
+    <h1>Search</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="HomePage.php">Home</a></li>
+        <li><a href="http://localhost/project-sastraku/latest.php">Latest</a></li>
+        <li><a href="search.php">Search</a></li>
+        <li><a href="#">History</a></li>
+        <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
+        <li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <h1></h1>
+    <form method="post" action="search.php">
+        <input type="text" name="search" placeholder="Cari judul karya sastra" value="<?php echo htmlspecialchars($searchTerm); ?>">
+        <input type="submit" value="Cari">
+    </form>
 
 
-        <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "project_sastraku";
+    <?php
+    if ($searchTerm) {
+        $sql = "SELECT id, judul, jenis_sastra, sampul_buku FROM data_buku WHERE judul LIKE '%$searchTerm%'";
+    } else {
+        $sql = "SELECT id, judul, jenis_sastra, sampul_buku FROM data_buku ORDER BY id DESC LIMIT 5";
+    }
+    $result = $conn->query($sql);
 
 
-        // Membuat koneksi ke database
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-
-        // Memeriksa koneksi
-        if ($conn->connect_error) {
-            die("Koneksi gagal: " . $conn->connect_error);
+    if ($result && $result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo '<div class="book">';
+            echo '<h3>' . $row['judul'] . '</h3>';
+            echo '<p>' . $row['jenis_sastra'] . '</p>';
+            echo '<a href="tampilanbaca.php?id=' . $row['id'] . '">';
+            echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' width='200' height='300' />";
+            echo '</a>';
+            echo '</div>';
         }
+    } else {
+        echo "Tidak ada karya sastra yang ditemukan.";
+    }
 
 
-        // Mendapatkan 5 karya sastra terbaru
-        $sql = "SELECT judul, jenis_sastra, sampul_buku FROM data_buku ORDER BY id DESC LIMIT 5";
-        $result = $conn->query($sql);
-
-
-        // Menampilkan karya sastra terbaru
-        if ($result && $result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                echo "<div class='book'>";
-                echo "<h3>" . $row["judul"]. "</h3>";
-                echo "<p>" . $row["jenis_sastra"]. "</p>";
-                echo "<img src='data:image/jpeg;base64," . base64_encode($row['sampul_buku']) . "' width='200' height='300' />";
-                echo "</div>";
-            }
-        } else {
-            echo "Belum ada karya sastra yang tersedia.";
-        }
-
-
-        // Menutup koneksi
-        $conn->close();
-        ?>
-    </div>
+    $conn->close();
+    ?>
+</div>
 </body>
 </html>
