@@ -4,22 +4,17 @@ $username = "root";
 $password = "";
 $dbname = "project_sastraku";
 
-
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-
 $sql = "SELECT id, judul, jenis_sastra, genre, penulis, sampul_buku FROM data_buku ORDER BY id DESC LIMIT 5";
 $result = $conn->query($sql);
 
-
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
