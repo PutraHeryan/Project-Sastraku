@@ -24,7 +24,6 @@ if (isset($_GET["id"])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,6 +84,7 @@ if (isset($_GET["id"])) {
             <h1><?php echo $row["judul"]; ?></h1>
             <img src="data:image/jpeg;base64,<?php echo base64_encode($row["sampul_buku"]); ?>" alt="Sampul Buku" width='200' height='300' >
             <p><?php echo $row["sinopsis"]; ?></p>
+            <a href="TextBuku.PHP?id=<?php echo $id_buku; ?>"><button>Mulai Membaca!</button></a>
         </div>
         <div class="rating">
             <h2>Beri Rating:</h2>
