@@ -18,7 +18,7 @@
             echo $row["isi_buku"]. "<br>";
         }
     } else {
-        echo "0 results";
+        echo "";
     }
     $conn->close();
 ?>
