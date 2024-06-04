@@ -20,11 +20,9 @@ $stmt->bind_param("s", $penulis);
 $stmt->execute();
 $result = $stmt->get_result();
 
-
 $stmt->close();
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
