@@ -38,11 +38,42 @@
 <header>
     <h1>Tulis Buku</h1>
 </header>
-<textarea id="text_editor" placeholder="Mulailah menulis di sini..."></textarea>
-<br>
-<div class="button-container">  
-    <button onclick="saveText()">Selesai Menulis</button>
+<?php
+        $servername = "localhost";
+        $dbusername = "root";
+        $dbpassword = "";
+        $dbname = "project_sastraku";
+
+        // Membuat koneksi
+        $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $id = $_GET['id'];
+        $sql = "SELECT isi_buku FROM data_buku WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $text = $row['isi_buku'];
+
+        $stmt->close();
+        $conn->close();
+    ?>
+
+    <form action="save_text.php" method="post">
+        <textarea id="text_editor" name="text" placeholder="Mulailah menulis di sini..."><?php echo $text; ?></textarea>
+        <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+        <input type="submit" value="Selesai Menulis">
+    </form>
     <a href="http://localhost/project-sastraku/homepage.php">Kembali</a>
+</body>
+</html>
 </div>
 <script>
     function saveText() {
