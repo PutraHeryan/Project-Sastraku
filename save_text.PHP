@@ -22,7 +22,7 @@
         echo "Berhasil Tersimpan";
         header("Location: http://localhost/project-sastraku/homepage.php");
     } else {
-        echo "Error updating record: " . $conn->error;
+        echo "Error" . $conn->error;
     }
 
     $stmt->close();
