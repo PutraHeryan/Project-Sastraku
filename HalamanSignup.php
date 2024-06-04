@@ -57,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .kotak_login{
             width: 350px;
             background: white;
-            /*Meletakkan form ke tengah */
             margin : 80px auto;
             padding : 30px 20px;
         }
@@ -65,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .tulisan_signup{
             text-align: center;
-            /*Membuat semua huruf menjadi kapital*/
             text-transform: uppercase;
         }
 

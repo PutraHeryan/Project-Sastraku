@@ -4,10 +4,8 @@
     $dbpassword = "";
     $dbname = "project_sastraku";
 
-    // Membuat koneksi
     $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
-    // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
@@ -21,8 +19,8 @@
     $stmt->bind_param("si", $text, $id);
 
     if ($stmt->execute()) {
-        echo "Record updated successfully";
-        header("Location: http://localhost/project-sastraku/homepage.php"); // Redirect user back to the homepage
+        echo "Berhasil Tersimpan";
+        header("Location: http://localhost/project-sastraku/homepage.php");
     } else {
         echo "Error updating record: " . $conn->error;
     }

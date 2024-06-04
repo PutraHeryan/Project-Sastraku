@@ -5,23 +5,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST["genre"])) {
         $genre = $_POST["genre"];
 
-        // Koneksi ke database
         $servername = "localhost";
         $dbusername = "root";
         $dbpassword = "";
         $dbname = "project_sastraku";
 
-        // Membuat koneksi
         $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
-        // Cek koneksi
         if ($conn->connect_error) {
             die("Koneksi gagal: " . $conn->connect_error);
         }
         if(isset($_POST["genre"])) {
-            $genre = implode(", ", $_POST["genre"]); // Mengubah array menjadi string
+            $genre = implode(", ", $_POST["genre"]);
 
-        // Query SQL untuk menyimpan data
         $sql = "UPDATE data_user SET genre='$genre' WHERE username='".$_SESSION['username']."'";
 
         if ($conn->query($sql) === TRUE) {
@@ -59,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .kotak_genre{
             width: 350px;
             background: white;
-            /*Meletakkan form ke tengah */
             margin : 80px auto;
             padding : 30px 20px;
         }

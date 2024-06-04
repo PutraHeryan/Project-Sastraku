@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sinopsis = $_POST["sinopsis"];
 
 
-    // Handle file upload
+    
     $sampul_buku = '';
     if (isset($_FILES['sampul_buku']) && $_FILES['sampul_buku']['error'] === UPLOAD_ERR_OK) {
         $image = $_FILES['sampul_buku']['tmp_name'];

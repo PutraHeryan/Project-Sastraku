@@ -1,29 +1,19 @@
 <?php
 session_start();
 
-
-// Konfigurasi database
 $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "";
 $dbname = "project_sastraku";
 
-
-// Membuat koneksi ke database
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
-
-// Memeriksa koneksi
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-
-// Mendapatkan username penulis dari sesi
 $penulis = $_SESSION['username'];
 
-
-// Mengambil data buku berdasarkan penulis
 $sql = "SELECT id, judul, sampul_buku FROM data_buku WHERE penulis = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $penulis);

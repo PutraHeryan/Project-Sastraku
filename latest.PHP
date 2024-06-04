@@ -5,17 +5,14 @@ $password = "";
 $dbname = "project_sastraku";
 
 
-// Membuat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 
-// Memeriksa koneksi
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
 
-// Mendapatkan 5 karya sastra terbaru
 $sql = "SELECT id, judul, jenis_sastra, genre, penulis, sampul_buku FROM data_buku ORDER BY id DESC LIMIT 5";
 $result = $conn->query($sql);
 

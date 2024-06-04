@@ -7,24 +7,16 @@ if (isset($_GET["id"])) {
     $password = "";
     $dbname = "project_sastraku";
 
-
-    // Membuat koneksi ke database
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-
-    // Memeriksa koneksi
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-
-    // Mendapatkan data buku berdasarkan ID
     $sql = "SELECT judul, sinopsis, sampul_buku FROM data_buku WHERE id = '$id_buku'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
 
-
-    // Menutup koneksi
     $conn->close();
 } else {
     header("Location: error.php");

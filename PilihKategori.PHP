@@ -5,22 +5,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST["kategori"])) {
         $kategori = $_POST["kategori"];
 
-        // Koneksi ke database
         $servername = "localhost";
         $dbusername = "root";
         $dbpassword = "";
         $dbname = "project_sastraku";
 
-        // Membuat koneksi
         $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
-        // Cek koneksi
         if ($conn->connect_error) {
             die("Koneksi gagal: " . $conn->connect_error);
         }
         if(isset($_POST["kategori"])) {
-            $kategori = implode(", ", $_POST["kategori"]); // Mengubah array menjadi string
-        // Query SQL untuk menyimpan data
+            $kategori = implode(", ", $_POST["kategori"]);
         $sql = "UPDATE data_user SET kategori='$kategori' WHERE username='".$_SESSION['username']."'";
 
         if ($conn->query($sql) === TRUE) {
