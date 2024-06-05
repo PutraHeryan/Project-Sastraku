@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: http://localhost/project-sastraku/TulisBuku.php");
+        header("Location: http://localhost/project-sastraku/Homepage.php");
         exit;
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
