@@ -36,15 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["username"] = $username;
         $_SESSION["id_user"] = $row["id_user"];
 
-        if (empty($row['kategori']) || empty($row['genre'])) {
-            if (empty($row['kategori'])) {
-                header("Location: http://localhost/project-sastraku/pilihkategori.php");
-            } else {
-                header("Location: http://localhost/project-sastraku/pilihgenre.php");
-            }
-        } else {
-            header("Location: http://localhost/project-sastraku/Homepage.php");
-        }
+        header("Location: http://localhost/project-sastraku/pilihkategori.php");
         exit;
     } else {
         echo "<div class='error'>Username atau password salah!</div>";

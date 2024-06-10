@@ -98,36 +98,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <div class="kotak_kategori">
+<div class="kotak_kategori">
         <h2>KATEGORI SASTRA</h2>
         <p>Silahkan Pilih Kategori Sastra Yang Anda Sukai</p>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="form-group">
-                <input type="checkbox" id="puisi" name="kategori[]" value="Puisi">
+                <input type="radio" id="puisi" name="kategori[]" value="Puisi">
                 <label for="puisi">Puisi</label>
             </div>
             <div class="form-group">
-                <input type="checkbox" id="drama" name="kategori[]" value="Drama">
+                <input type="radio" id="drama" name="kategori[]" value="Drama">
                 <label for="drama">Drama</label>
             </div>
             <div class="form-group">
-                <input type="checkbox" id="novel" name="kategori[]" value="Novel">
+                <input type="radio" id="novel" name="kategori[]" value="Novel">
                 <label for="novel">Novel</label>
             </div>
             <div class="form-group">
-                <input type="checkbox" id="cerpen" name="kategori[]" value="Cerpen">
+                <input type="radio" id="cerpen" name="kategori[]" value="Cerpen">
                 <label for="cerpen">Cerpen</label>
             </div>
             <div class="form-group">
-                <input type="checkbox" id="biografi" name="kategori[]" value="Biografi">
+                <input type="radio" id="biografi" name="kategori[]" value="Biografi">
                 <label for="biografi">Biografi</label>
             </div>
             <div class="form-group">
-                <input type="checkbox" id="legenda" name="kategori[]" value="Legenda">
+                <input type="radio" id="legenda" name="kategori[]" value="Legenda">
                 <label for="legenda">Legenda</label>
             </div>
             <div class="form-group">
-                <input type="checkbox" id="fabel" name="kategori[]" value="Fabel">
+                <input type="radio" id="fabel" name="kategori[]" value="Fabel">
                 <label for="fabel">Fabel</label>
             </div>
             <button type="submit" class="button-next">Selanjutnya</button>
