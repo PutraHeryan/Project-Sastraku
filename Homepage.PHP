@@ -107,8 +107,10 @@ $books = $stmt->get_result();
         <h2>Rekomendasi Buku</h2>
         <?php while($book = $books->fetch_assoc()): ?>
             <div class="book">
-                <h3><?php echo $book['judul']; ?></h3>
-                <img src="data:image/jpeg;base64,<?php echo base64_encode($book['sampul_buku']); ?>" width='200' height='300' />
+                <h3><?php echo htmlspecialchars($book['judul']); ?></h3>
+                <a href="tampilanbaca.php?id=<?php echo $book['id']; ?>" style="text-decoration: none; color: inherit;">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($book['sampul_buku']); ?>" alt="Sampul Buku">
+                </a>
             </div>
         <?php endwhile; ?>
     </div>
