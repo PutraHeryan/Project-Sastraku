@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         exit;
     } else {
-        echo "Username atau password salah!";
+        echo "<div class='error'>Username atau password salah!</div>";
     }
 
     $conn->close();
@@ -55,88 +55,94 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <style type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Login</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-color: #FEE6A8;
+            background: linear-gradient(to right, #FEE6A8, #F6C28B);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-
-        header {
-            background-color: #a0af4c;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-        }
-        
-        .kotak_login{
-            width: 350px;
+        .login-container {
             background: white;
-            margin : 80px auto;
-            padding : 30px 20px;
-        }
-
-        .tulisan_login{
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        label{
-            font-size : 11pt;
-        }
-
-        .form_login{
-            box-sizing: border-box;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             width: 100%;
-            padding: 10px;
-            font-size: 11pt;
-            margin-bottom: 20px;
+            max-width: 400px;
+            text-align: center;
         }
-
-        .button_login{
+        .login-container h2 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .button-login {
             background: #46DE4B;
             color: white;
-            font-size: 11pt;
+            font-size: 1rem;
             width: 100%;
             border: none;
-            border-radius: 3px;
-            padding: 10px 20px;
+            border-radius: 5px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
-
-        .link{
+        .button-login:hover {
+            background: #3cb83a;
+        }
+        .link {
             color: #0000FF;
-            text-decoration : none;
-            font-size: 10pt;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 1rem;
+        }
+        .error {
+            color: red;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
-
-
-<header>
-    <h1>Halaman Login</h1>
-</header>
-<div class="kotak_login">
-    <p class="tulisan_login">Silahkan Login</p>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        <label>Username</label>
-        <br/>
-        <input type="text" name="username" class="form_login" placeholder="Username">
-        <br></br>
-        <label>Password</label>
-        <br/>
-        <input type="password" name="password" class="form_login" placeholder="Password">
-        <br></br>
-    <input type="submit" name="submit" value="Login" class="button_login">
-    </form>
-
-    <p>Belum punya akun? Silahkan daftar disini</p>
-    <a class="link" href="http://localhost/project-sastraku/halamansignup.php">Sign-up</a>
-</div>
-
+    <div class="login-container">
+        <h2>Halaman Login</h2>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="button-login">Login</button>
+        </form>
+        <a class="link" href="http://localhost/project-sastraku/halamansignup.php">Belum punya akun? Sign-up disini</a>
+    </div>
 </body>
 </html>
