@@ -110,7 +110,6 @@ $conn->close();
             <li><a href="HomePage.php">Home</a></li>
             <li><a href="latest.php">Latest</a></li>
             <li><a href="search.php">Search</a></li>
-            <li><a href="#">History</a></li>
             <li style="float: right;"><a href="halamanpenulis.php">Writing</a></li>
             <li style="float: right;"><a href="RiwayatTulis.php">Writing List</a></li>
         </ul>
