@@ -10,6 +10,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
@@ -45,6 +48,7 @@
 
         .content {
             padding: 20px;
+            flex: 1 0 auto;
         }
 
         footer {
@@ -52,9 +56,7 @@
             color: white;
             text-align: center;
             padding: 1rem;
-            position: relative;
             width: 97,8%;
-            bottom: 0;
         }
         </style>
 </head>

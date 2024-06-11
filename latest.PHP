@@ -60,6 +60,7 @@ $conn->close();
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
+            flex: 1 0 auto;
         }
         .book {
             display: flex;
@@ -95,9 +96,7 @@ $conn->close();
             color: white;
             text-align: center;
             padding: 1rem;
-            position: relative;
             width: 97,8%;
-            bottom: 0;
         }
     </style>
 </head>

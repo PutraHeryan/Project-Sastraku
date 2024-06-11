@@ -58,6 +58,7 @@ $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
         .content {
             padding: 20px;
+            flex: 1 0 auto;
         }
 
         footer {
@@ -65,9 +66,7 @@ $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
             color: white;
             text-align: center;
             padding: 1rem;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            width: 97,8%;
         }
         </style>
 </head>
