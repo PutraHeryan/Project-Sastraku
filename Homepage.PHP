@@ -63,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["hapus"])) {
     }
 }
 
-
 $stmt->close();
 $conn->close();
 ?>

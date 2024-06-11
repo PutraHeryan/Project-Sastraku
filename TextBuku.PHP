@@ -2,20 +2,16 @@
 if (isset($_GET["id"])) {
     $id_buku = intval($_GET["id"]);
 
-
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "project_sastraku";
 
-
     $conn = new mysqli($servername, $username, $password, $dbname);
-
 
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }
-
 
     $sql = "SELECT isi_buku FROM data_buku WHERE id = ?";
     $stmt = $conn->prepare($sql);
@@ -24,10 +20,8 @@ if (isset($_GET["id"])) {
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-
     $stmt->close();
     $conn->close();
-
 
     if (!$row) {
         header("Location: error.php");
@@ -38,7 +32,6 @@ if (isset($_GET["id"])) {
     exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

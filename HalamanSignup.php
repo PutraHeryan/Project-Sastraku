@@ -67,23 +67,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-align: center;
         }
 
-
         .kotak_login h2{
             margin-bottom: 1rem;
             color: #333;
         }
 
-
         label{
             font-size : 11pt;
         }
-
 
         .form_signup{
             margin-bottom: 1rem;
             text-align: left;
         }
-
 
         .form_signup label{
             display: inline-block;
@@ -91,7 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-bottom: 0.5rem;
             color: #555;
         }
-
 
         .form_signup input{
             width: 100%;
@@ -103,7 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 1rem;
         }
 
-
         .button_signup{
             background: #46DE4B;
             color: white;
@@ -114,12 +108,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px 20px;
         }
 
-
     </style>
 </head>
 <body>
-
-
 <div class="kotak_login">
     <h2>Silahkan Sign-Up</h2>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

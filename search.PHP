@@ -10,15 +10,11 @@ if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-
 $searchTerm = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $searchTerm = $_POST['search'];
 }
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,11 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             overflow: hidden;
         }
 
-
         nav ul li {
             float: left;
         }
-
 
         nav ul li a {
             display: block;
@@ -61,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-decoration: none;
         }
 
-
         nav ul li a:hover {
             background-color: #111;
         }
@@ -70,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .content {
             padding: 20px;
         }
-
 
         footer {
             background-color: #333;
@@ -150,7 +142,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="Cari">
     </form>
 
-
     <?php
     if ($searchTerm) {
         $sql = "SELECT id, judul, jenis_sastra, sampul_buku FROM data_buku WHERE judul LIKE '%$searchTerm%'";
@@ -173,7 +164,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Tidak ada karya sastra yang ditemukan.";
     }
-
 
     $conn->close();
     ?>
