@@ -48,6 +48,21 @@ if (!empty($user['buku_favorit'])) {
     }
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["hapus"])) {
+    $id_buku = $_POST["id_buku"];
+    $index = array_search($id_buku, $favorite_ids);
+    if ($index !== false) {
+        unset($favorite_ids[$index]);
+        $user['buku_favorit'] = implode(',', $favorite_ids);
+        $query = "UPDATE data_user SET buku_favorit = ? WHERE id_user = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('si', $user['buku_favorit'], $id_user);
+        $stmt->execute();
+        header("Location: http://localhost/project-sastraku/Homepage.php");
+        exit;
+    }
+}
+
 
 $stmt->close();
 $conn->close();
@@ -122,8 +137,8 @@ $conn->close();
             color: white;
             text-align: center;
             padding: 1rem;
-            position: fixed;
-            width: 100%;
+            position: relative;
+            width: 97,8%;
             bottom: 0;
         }
     </style>
@@ -169,6 +184,10 @@ $conn->close();
                         <a href="tampilanbaca.php?id=<?php echo $fav_book['id']; ?>" style="text-decoration: none; color: inherit;">
                             <img src="data:image/jpeg;base64,<?php echo base64_encode($fav_book['sampul_buku']); ?>" alt="Sampul Buku">
                         </a>
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <input type="hidden" name="id_buku" value="<?php echo $fav_book['id']; ?>">
+                            <input type="submit" name="hapus" value="Hapus">
+                        </form>
                     </div>
                 <?php $nomor++; endforeach; ?>
             </div>

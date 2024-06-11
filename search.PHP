@@ -77,8 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: white;
             text-align: center;
             padding: 1rem;
-            position: fixed;
-            width: 100%;
+            position: relative;
+            width: 97,8%;
             bottom: 0;
         }
         .container {

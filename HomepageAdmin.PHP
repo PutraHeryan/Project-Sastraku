@@ -22,14 +22,12 @@ $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
             box-sizing: border-box;
         }
 
-
         header {
             background-color: #a0af4c;
             color: white;
             text-align: center;
             padding: 1rem;
         }
-
 
         nav ul {
             list-style: none;
@@ -39,11 +37,9 @@ $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
             overflow: hidden;
         }
 
-
         nav ul li {
             float: left;
         }
-
 
         nav ul li a {
             display: block;
@@ -53,24 +49,21 @@ $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
             text-decoration: none;
         }
 
-
         nav ul li a:hover {
             background-color: #111;
         }
 
-
         .content {
             padding: 20px;
         }
-
 
         footer {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 1rem;
-            position: fixed;
-            width: 100%;
+            position: relative;
+            width: 97,8%;
             bottom: 0;
         }
         </style>
