@@ -20,6 +20,9 @@ $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
@@ -62,8 +65,8 @@ $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
             color: white;
             text-align: center;
             padding: 1rem;
-            position: relative;
-            width: 97,8%;
+            position: fixed;
+            width: 100%;
             bottom: 0;
         }
         </style>
