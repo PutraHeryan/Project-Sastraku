@@ -86,7 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         .form_signup label{
-            display: block;
+            display: inline-block;
+            width: 40%;
             margin-bottom: 0.5rem;
             color: #555;
         }
@@ -94,6 +95,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .form_signup input{
             width: 100%;
+            display: inline-block;
+            box-sizing: border-box;
             padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 5px;
