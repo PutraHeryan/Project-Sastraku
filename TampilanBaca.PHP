@@ -1,7 +1,8 @@
 <?php
 session_start();
+
 if (isset($_GET["id"])) {
-    $id_buku = intval($_GET["id"]); // Sanitasi input
+    $id_buku = intval($_GET["id"]);
 
 
     $servername = "localhost";
@@ -9,32 +10,22 @@ if (isset($_GET["id"])) {
     $password = "";
     $dbname = "project_sastraku";
 
-
-    // Membuat koneksi ke database
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-
-    // Memeriksa koneksi
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-
-    // Mendapatkan data buku berdasarkan ID
-    $sql = "SELECT judul, sinopsis, sampul_buku FROM data_buku WHERE id = ?";
+    $sql = "SELECT id, judul, sinopsis, sampul_buku FROM data_buku WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id_buku);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-
-    // Menutup koneksi
     $stmt->close();
     $conn->close();
 
-
-    // Periksa apakah data ditemukan
     if (!$row) {
         header("Location: error.php");
         exit();
@@ -44,33 +35,40 @@ if (isset($_GET["id"])) {
     exit();
 }
 
-
-// Menambahkan buku ke daftar favorit
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["favorit"])) {
-    $username = $_SESSION['username'];
+    $id_user = $_SESSION['id_user'];
 
-
-    // Membuat koneksi ke database
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-
-    // Memeriksa koneksi
     if ($conn->connect_error) {
         die("Koneksi gagal: " . $conn->connect_error);
     }
 
-
-    // Menambahkan buku ke daftar favorit pengguna
-    $sql = "INSERT INTO favorit (username, id_buku) VALUES (?, ?)";
+    $sql = "SELECT buku_favorit FROM data_user WHERE id_user = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $username, $id_buku);
+    $stmt->bind_param("i", $id_user);
     $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
 
-    // Menutup koneksi
+    $buku_favorit = $user['buku_favorit'];
+
+    if (strpos($buku_favorit, (string)$id_buku) === false) {
+        if ($buku_favorit) {
+            $buku_favorit .= "," . $id_buku;
+        } else {
+            $buku_favorit = $id_buku;
+        }
+
+        $sql = "UPDATE data_user SET buku_favorit = ? WHERE id_user = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $buku_favorit, $id_user);
+        $stmt->execute();
+    }
+
     $stmt->close();
     $conn->close();
-
 
     header("Location: homepage.php");
     exit();
@@ -154,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["favorit"])) {
     <div class="container">
         <div class="book">
             <h1><?php echo htmlspecialchars($row["judul"]); ?></h1>
-            <img src="data:image/jpeg;base64,<?php echo base64_encode($row["sampul_buku"]); ?>" alt="Sampul Buku" width='200' height='300' >
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($row["sampul_buku"]); ?>" alt="Sampul Buku" width='200' height='300'>
             <p><?php echo nl2br(htmlspecialchars($row["sinopsis"])); ?></p>
             <a href="TextBuku.php?id=<?php echo $id_buku; ?>" class="back-link">Mulai Baca</a>
         </div>

@@ -7,19 +7,50 @@ $dbname = "project_sastraku";
 
 $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
 $id_user = $_SESSION['id_user'];
-$query = "SELECT kategori, genre FROM data_user WHERE id_user = ?";
+
+$query = "SELECT kategori, genre, buku_favorit FROM data_user WHERE id_user = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $id_user);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-$query = "SELECT judul, sampul_buku FROM data_buku WHERE jenis_sastra = ? AND genre = ?";
+$query = "SELECT id, judul, sampul_buku FROM data_buku WHERE jenis_sastra = ? AND genre = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('ss', $user['kategori'], $user['genre']);
 $stmt->execute();
 $books = $stmt->get_result();
+
+$fav_books = [];
+if ($user['buku_favorit']) {
+    $favorite_ids = explode(',', $user['buku_favorit']);
+    $placeholders = implode(',', array_fill(0, count($favorite_ids), '?'));
+    $types = str_repeat('i', count($favorite_ids));
+    $query = "SELECT id, judul, sampul_buku FROM data_buku WHERE id IN ($placeholders)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param($types, ...$favorite_ids);
+    $stmt->execute();
+    $fav_books_result = $stmt->get_result();
+    while ($row = $fav_books_result->fetch_assoc()) {
+        $fav_books[$row['id']] = $row;
+    }
+}
+
+$fav_books_ordered = [];
+foreach ($favorite_ids as $id) {
+    if (isset($fav_books[$id])) {
+        $fav_books_ordered[] = $fav_books[$id];
+    }
+}
+
+
+$stmt->close();
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,17 +64,14 @@ $books = $stmt->get_result();
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            background-color: #f2f2f2;
         }
-
-
         header {
             background-color: #a0af4c;
             color: white;
             text-align: center;
             padding: 1rem;
         }
-
-
         nav ul {
             list-style: none;
             padding: 0;
@@ -51,13 +79,9 @@ $books = $stmt->get_result();
             background-color: #333;
             overflow: hidden;
         }
-
-
         nav ul li {
             float: left;
         }
-
-
         nav ul li a {
             display: block;
             color: white;
@@ -65,18 +89,34 @@ $books = $stmt->get_result();
             padding: 14px 20px;
             text-decoration: none;
         }
-
-
         nav ul li a:hover {
             background-color: #111;
         }
-
-
         .content {
             padding: 20px;
         }
-
-
+        .book-list {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 10px;
+        }
+        .book {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 0 0 200px;
+            text-align: center;
+        }
+        .book img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            border-radius: 10px;
+        }
         footer {
             background-color: #333;
             color: white;
@@ -86,7 +126,7 @@ $books = $stmt->get_result();
             width: 100%;
             bottom: 0;
         }
-        </style>
+    </style>
 </head>
 <body>
     <header>
@@ -104,14 +144,35 @@ $books = $stmt->get_result();
     <div class="content">
         <h1>Selamat Datang di Beranda Kami</h1>
         <h2>Rekomendasi Buku</h2>
-        <?php while($book = $books->fetch_assoc()): ?>
-            <div class="book">
-                <h3><?php echo htmlspecialchars($book['judul']); ?></h3>
-                <a href="tampilanbaca.php?id=<?php echo $book['id']; ?>" style="text-decoration: none; color: inherit;">
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($book['sampul_buku']); ?>" alt="Sampul Buku">
-                </a>
+        <div class="book-list">
+            <?php
+            $nomor = 1;
+            while($book = $books->fetch_assoc()): ?>
+                <div class="book">
+                    <h3><?php echo $nomor . '. ' . htmlspecialchars($book['judul']); ?></h3>
+                    <a href="tampilanbaca.php?id=<?php echo $book['id']; ?>" style="text-decoration: none; color: inherit;">
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($book['sampul_buku']); ?>" alt="Sampul Buku">
+                    </a>
+                </div>
+            <?php $nomor++; endwhile; ?>
+        </div>
+
+
+        <?php if (!empty($fav_books_ordered)): ?>
+            <h2>Buku Favorit Anda</h2>
+            <div class="book-list">
+                <?php
+                $nomor = 1;
+                foreach ($fav_books_ordered as $fav_book): ?>
+                    <div class="book">
+                        <h3><?php echo $nomor . '. ' . htmlspecialchars($fav_book['judul']); ?></h3>
+                        <a href="tampilanbaca.php?id=<?php echo $fav_book['id']; ?>" style="text-decoration: none; color: inherit;">
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($fav_book['sampul_buku']); ?>" alt="Sampul Buku">
+                        </a>
+                    </div>
+                <?php $nomor++; endforeach; ?>
             </div>
-        <?php endwhile; ?>
+        <?php endif; ?>
     </div>
     <footer>
         <p>© 2024 SastraKu. Hak Cipta Dilindungi.</p>
