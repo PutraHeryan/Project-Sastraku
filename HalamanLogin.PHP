@@ -30,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        session_unset();
        
         $row = $result->fetch_assoc();
         $_SESSION["username"] = $username;
