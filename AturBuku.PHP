@@ -12,14 +12,12 @@
             box-sizing: border-box;
         }
 
-
         header {
             background-color: #a0af4c;
             color: white;
             text-align: center;
             padding: 1rem;
         }
-
 
         nav ul {
             list-style: none;
@@ -29,11 +27,9 @@
             overflow: hidden;
         }
 
-
         nav ul li {
             float: left;
         }
-
 
         nav ul li a {
             display: block;
@@ -43,16 +39,13 @@
             text-decoration: none;
         }
 
-
         nav ul li a:hover {
             background-color: #111;
         }
 
-
         .content {
             padding: 20px;
         }
-
 
         footer {
             background-color: #333;
