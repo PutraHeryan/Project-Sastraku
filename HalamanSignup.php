@@ -36,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-color: #FEE6A8;
+            background: linear-gradient(to right, #FEE6A8, #F6C28B);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         header {
             background-color: #a0af4c;
@@ -55,16 +58,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 1rem;
         }
         .kotak_login{
-            width: 350px;
             background: white;
-            margin : 80px auto;
-            padding : 30px 20px;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
 
 
-        .tulisan_signup{
-            text-align: center;
-            text-transform: uppercase;
+        .kotak_login h2{
+            margin-bottom: 1rem;
+            color: #333;
         }
 
 
@@ -74,11 +80,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         .form_signup{
-            box-sizing: border-box;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+
+        .form_signup label{
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+
+        .form_signup input{
             width: 100%;
-            padding: 10px;
-            font-size: 11pt;
-            margin-bottom: 15px;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
         }
 
 
@@ -92,31 +111,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px 20px;
         }
 
+
     </style>
 </head>
 <body>
 
 
-<header>
-    <h1>Halaman Sign Up</h1>
-</header>
-
-
 <div class="kotak_login">
-    <p class="tulisan_signup">Silahkan Sign-Up</p>
+    <h2>Silahkan Sign-Up</h2>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <label>Username</label>
-    <br/>
-    <input type="text" name="username" class="form_signup" placeholder="">
-    <br><br>
-    <label>Password</label>
-    <br/>
-    <input type="password" name="password" class="form_signup">
-    <br><br>
-    <label>Konfirmasi Password</label>
-    <br/>
-    <input type="password" name="confirm_password" class="form_signup">
-    <br><br>
+    <div class="form_signup">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Username">
+    </div>
+    <div class="form_signup">
+        <label>Password</label>
+        <input type="password" name="password" class="form_signup" placeholder="Password">
+    </div>
+    <div class="form_signup">
+        <label>Konfirmasi Password</label>
+        <input type="password" name="confirm_password" class="form_signup" placeholder="Konfirmasi Password">
+    </div>
     <input type="submit" name="submit" value="Daftar" class="button_signup">
 </form>
 </div>

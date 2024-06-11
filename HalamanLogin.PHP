@@ -82,12 +82,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-align: left;
         }
         .form-group label {
-            display: block;
+            display: inline-block;
+            width: 30%;
             margin-bottom: 0.5rem;
             color: #555;
         }
         .form-group input {
             width: 100%;
+            display: inline-block;
+            box-sizing: border-box;
             padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 5px;
