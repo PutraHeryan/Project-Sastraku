@@ -116,15 +116,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div class="form_signup">
         <label>Username</label>
-        <input type="text" name="username" placeholder="Username">
+        <input type="text" name="username" placeholder="Username" required>
     </div>
     <div class="form_signup">
         <label>Password</label>
-        <input type="password" name="password" class="form_signup" placeholder="Password">
+        <input type="password" name="password" class="form_signup" placeholder="Password" required>
     </div>
     <div class="form_signup">
         <label>Konfirmasi Password</label>
-        <input type="password" name="confirm_password" class="form_signup" placeholder="Konfirmasi Password">
+        <input type="password" name="confirm_password" class="form_signup" placeholder="Konfirmasi Password" required>
     </div>
     <input type="submit" name="submit" value="Daftar" class="button_signup">
 </form>
