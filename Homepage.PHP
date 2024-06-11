@@ -27,7 +27,8 @@ $stmt->execute();
 $books = $stmt->get_result();
 
 $fav_books = [];
-if ($user['buku_favorit']) {
+$fav_books_ordered = [];
+if (!empty($user['buku_favorit'])) {
     $favorite_ids = explode(',', $user['buku_favorit']);
     $placeholders = implode(',', array_fill(0, count($favorite_ids), '?'));
     $types = str_repeat('i', count($favorite_ids));
@@ -39,12 +40,11 @@ if ($user['buku_favorit']) {
     while ($row = $fav_books_result->fetch_assoc()) {
         $fav_books[$row['id']] = $row;
     }
-}
 
-$fav_books_ordered = [];
-foreach ($favorite_ids as $id) {
-    if (isset($fav_books[$id])) {
-        $fav_books_ordered[] = $fav_books[$id];
+    foreach ($favorite_ids as $id) {
+        if (isset($fav_books[$id])) {
+            $fav_books_ordered[] = $fav_books[$id];
+        }
     }
 }
 
@@ -172,6 +172,8 @@ $conn->close();
                     </div>
                 <?php $nomor++; endforeach; ?>
             </div>
+        <?php else: ?>
+            <h2>Belum Menambahkan Buku Favorit</h2>
         <?php endif; ?>
     </div>
     <footer>
