@@ -31,9 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
        
-        $row = $result->fetch_assoc();
+        $id = $result->fetch_assoc();
         $_SESSION["username"] = $username;
-        $_SESSION["id_user"] = $row["id_user"];
+        $_SESSION["id_user"] = $id["id_user"];
 
         header("Location: http://localhost/project-sastraku/pilihkategori.php");
         exit;

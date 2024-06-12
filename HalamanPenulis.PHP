@@ -14,8 +14,8 @@ if ($conn->connect_error) {
 
 $sql = "SELECT MAX(id) AS max_id FROM data_buku";
 $result = $conn->query($sql);
-$row = $result->fetch_assoc();
-$next_id = $row['max_id'] + 1;
+$id = $result->fetch_assoc();
+$next_id = $id['max_id'] + 1;
 $id_buku = str_pad($next_id, 4, '0', STR_PAD_LEFT);
 
 $penulis = $_SESSION['username'];
