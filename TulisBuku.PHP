@@ -80,7 +80,6 @@
         var writtenText = document.getElementById('text_editor').value;
         var Id = <?php echo $_GET['id']; ?>;
 
-        alert('Teks berhasil disimpan!');
     }
 </script>
 </body>
