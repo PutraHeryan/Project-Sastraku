@@ -57,7 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background: linear-gradient(to right, #FEE6A8, #F6C28B);
+            background: url("perpuslogin.jpg") no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;

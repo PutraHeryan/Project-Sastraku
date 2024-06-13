@@ -162,6 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["favorit"])) {
                 <input type="submit" value="Tambahkan ke Favorit">
             </form>
         </div>
+        <a href="homepage.php?id=<?php echo $id_buku; ?>" class="back-link">Kembali</a>
     </div>
 </body>
 </html>
