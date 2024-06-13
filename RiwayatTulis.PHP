@@ -123,7 +123,6 @@ $conn->close();
             }
             ?>
         </div>
-        <a href="homepage.php">Kembali</a>
     </div>
     <footer>
         <p>© 2024 SastraKu. Hak Cipta Dilindungi.</p>
