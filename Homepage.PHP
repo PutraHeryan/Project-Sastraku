@@ -27,20 +27,18 @@ $stmt->execute();
 $books = $stmt->get_result();
 
 $fav_books = [];
-$fav_books_ordered = [];
 if (!empty($user['buku_favorit'])) {
     $favorite_ids = explode(',', $user['buku_favorit']);
-    $placeholders = implode(',', array_fill(0, count($favorite_ids), '?'));
-    $types = str_repeat('i', count($favorite_ids));
-    $query = "SELECT id, judul, sampul_buku FROM data_buku WHERE id IN ($placeholders)";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param($types, ...$favorite_ids);
-    $stmt->execute();
-    $fav_books_result = $stmt->get_result();
-    while ($row = $fav_books_result->fetch_assoc()) {
+    $favorite_ids_string = implode(',', array_map('intval', $favorite_ids));
+    $query = "SELECT id, judul, sampul_buku FROM data_buku WHERE id IN ($favorite_ids_string)";
+    $result = $conn->query($query);
+    while ($row = $result->fetch_assoc()) {
         $fav_books[$row['id']] = $row;
     }
+}
 
+$fav_books_ordered = [];
+if (!empty($favorite_ids)) {
     foreach ($favorite_ids as $id) {
         if (isset($fav_books[$id])) {
             $fav_books_ordered[] = $fav_books[$id];
@@ -151,10 +149,10 @@ $conn->close();
     <nav>
         <ul>
             <li><a href="HomePage.php">Home</a></li>
-            <li><a href="http://localhost/project-sastraku/latest.php">Latest</a></li>
-            <li><a href="search.PHP">Search</a></li>
-            <li style="float: right;"><a href="http://localhost/project-sastraku/halamanpenulis.php">Writing</a></li>
-            <li style="float: right;"><a href="http://localhost/project-sastraku/RiwayatTulis.php">Writing List</a></li>
+            <li><a href="latest.php">Latest</a></li>
+            <li><a href="search.php">Search</a></li>
+            <li style="float: right;"><a href="halamanpenulis.php">Writing</a></li>
+            <li style="float: right;"><a href="RiwayatTulis.php">Writing List</a></li>
         </ul>
     </nav>
     <div class="content">
@@ -172,10 +170,8 @@ $conn->close();
                 </div>
             <?php $nomor++; endwhile; ?>
         </div>
-
-
+        <h2>Buku Favorit Anda</h2>
         <?php if (!empty($fav_books_ordered)): ?>
-            <h2>Buku Favorit Anda</h2>
             <div class="book-list">
                 <?php
                 $nomor = 1;
@@ -193,7 +189,7 @@ $conn->close();
                 <?php $nomor++; endforeach; ?>
             </div>
         <?php else: ?>
-            <h2>Belum Menambahkan Buku Favorit</h2>
+            <p>Kosong</p>
         <?php endif; ?>
     </div>
     <footer>
